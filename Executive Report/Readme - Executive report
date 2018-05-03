@@ -1,1 +1,3 @@
 A report I created to gather all the data that is floating around in emails and on cloud platforms, for easy digestion by the executive team. 
+The data come from various sources and are wrangled in separate scripts for each source. The resulting data frames and plots are then saved locally and loaded into the RMarkdown file, which generates an html-file that is uploaded for consumption. 
+The scripts took a while to code, but today the creation of new reports take about 30 seconds. 
