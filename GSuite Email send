@@ -1,0 +1,66 @@
+function sendEmail() 
+{    
+  var s = SpreadsheetApp.getActiveSheet();
+  var numRows = 1; 
+  var lastRow = s.getLastRow();
+  
+    //Remember to increase the last number of getRange if you add more variables!
+  var data = s.getRange(lastRow, 1, 1, 8).getValues()[0];
+  
+  var date = new Date(data[6]);
+  var date = Utilities.formatDate(date, 'Europe/Stockholm', 'yyyy-MM-dd');
+  var groupsx = data[3].replace(/ /g, '&nbsp;');
+  var space = '&nbsp;';
+  var groups = space.concat(groupsx);
+  var grouparray = groups.split(",");
+  var text = "";
+  
+  for (i = 0; i < grouparray.length; i++) {
+    text += grouparray[i] + "<br>";
+} 
+  
+  //var data = dataRange.getValues();
+  //var subjectNR = "Du har skickat en leadsförfrågan om att ta " + data[4] + " leads till " + data[3];
+  
+  var subjectCheck = "Leadsförfrågan från " + data[1] + " om att ta leads till " + data[4];
+  
+  var LEWemail = "peder.lewenhaupt@egn.se";
+  var IGRemail = "xx.xxxx@egn.se";
+  var JPEemail =  "xx.xxxx@egn.se";
+  
+  var recipients = LEWemail + "," + JPEemail;
+  
+  var msgHtmlCheck = 
+      data[1] + " önskar ta totalt " + "</br>" + 
+      "<b>" + data[5] + " leads " + "</b>" + "till " + "</br>" + 
+      "<b>" + data[4] + "</b>" + "." + "<br/>" + "<br/>" +
+      "<u>Från:</u> " + "<br/>" + text + "<br/>" +
+      "<u>Utskicksdatum:</u>  " + "</br>" + date + "</br>" + "</br>"  + 
+        "<u>Kommentar: </u>" + "</br>" + data[7];
+  
+   var msgPlainCheck = msgHtmlCheck.replace(/\<br\/\>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
+  
+  //var msgHtmlNR =
+      "Tack för din förfrågan.";
+  
+   //var msgPlainNR = msgHtmlNR.replace(/\<br\/\>/gi, '\n').replace(/(<([^>]+)>)/ig, "");
+  
+  
+  //HÄR LÄGGER DU TILL KOD FÖR NYA NR /////////////////////////////////////////////////////////////////////////
+  if (data[1] == "LEW"){var email =  "xx.xxxx@egn.se"};
+  
+  //HÄR LÄGGER DU TILL KOD FÖR NYA SALES SUPPORT /////////////////////////////////////////////////////////////////
+  // Insert variables from the spreadsheet into the subject.
+  if (data[1] == "LEW"){var email =  "xx.xxxx@egn.se"};
+  
+   var ccs = IGRemail + "," + email + "," + ssemail;  
+  
+  //HÄR LÄGGER DU TILL KOD FÖR OM NÅGRA EXTRA PERSONER SKA HA MAILET //////////////////////////////////////////////
+  if (data[1] == "LEW"){var email =  "xx.xxxx@egn.se"};
+  
+  // Send Check email
+  MailApp.sendEmail(recipients, subjectCheck, msgPlainCheck, { htmlBody: msgHtmlCheck, cc:ccs });
+  // Send testmail
+  //MailApp.sendEmail(LEWemail, subjectCheck, msgPlainCheck, {htmlBody: msgHtmlCheck});
+
+};
