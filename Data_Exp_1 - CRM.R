@@ -15,9 +15,6 @@ source('~/Docs/Machine Learning/package_load_ml.R')
 # ETL  #
 ########
 #Remove columns:
-#   address1_composite
-#   fm_hv_backgrounddescription
-#   fm_hv_interestdescription
 
 ################
 # IMPORT DATA  #
@@ -26,7 +23,7 @@ source('~/Docs/Machine Learning/package_load_ml.R')
 #col_types <- variables %>% select(Type) %>% mutate(stringrepr = ifelse(Type == 'discrete', 'c', 'n'))
 #typelist <- as.list(col_types$stringrepr)
 
-orig_data <- read_excel('~/Docs/FM_project/db_data/contact.xlsx')
+orig_data <- read_excel('~/file.xlsx')
 
 orig_data[orig_data == 'NULL'] <- NA
 
@@ -35,7 +32,7 @@ id <- orig_data$Id %>% as.list()
 ln <- sapply(id, nchar)
 len <- tibble(id = id, ln = ln) %>% filter(ln != 36)
 
-info <- file.info('~/Docs/FM_project/db_data/contact.xlsx')
+info <- file.info('~/file.xlsx')
 
 bytes <- info[1,1]
 megabytes <- info[1, 1]/10^6
